@@ -25,3 +25,30 @@ var templateTodo = function(todo){
     `;
   return t;
 };
+var log = function(){
+    console.log.apply(console, arguments);
+}
+var todoContainer = e('#id-div-container');
+//给这个父div添加点击事件，进行事件委托
+todoContainer.addEventListener('click', function(event){
+    log('container click', event, event.target);
+    var target = event.target
+    if(target.classList.contains('todo-done')){
+        log('done');
+        var todoDiv = target.parentElement;
+        toggleClass(todoDiv, 'done');
+    }else if(target.classList.contains('todo-delete')){
+        log('delete');
+        var todoDiv = target.parentElement;
+        todoDiv.remove();
+    }
+})
+//上面需要用到这个方法
+var toggleClass = function(element, className){
+    //如果标签里面已经存在了done这个class属性，那么就删掉，否则添加
+    if(element.classList.contains(className)){
+        element.classList.remove(className)
+    }else{
+        element.classList.add(className)
+    }
+}
